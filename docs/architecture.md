@@ -19,16 +19,23 @@ flowchart TD
   count --> saved
   saved --> pull["Pull highest severity"]
   pull --> evidence["Gather evidence"]
-  evidence --> logs["Logs around the error"]
-  evidence --> machine["Machine snapshot"]
-  evidence --> commits["Recent commits"]
+  evidence --> logs["Logs: fixture or GCP"]
+  evidence --> machine["Machine snapshot: fixture"]
+  evidence --> commits["Recent commits: fixture"]
   logs --> brain["Brain reads the evidence"]
   machine --> brain
   commits --> brain
   brain --> more{"Need one more fact?"}
-  more -->|yes| tool["One tool call"]
+  more -->|yes| tool["One tool call: logs, file, or PR diff"]
   tool --> brain
   more -->|no| result["Cause, confidence, and proposed fix"]
+  result --> fix["Fix writes a unified diff"]
+  fix --> judge["Judge reads the diff"]
+  judge --> accept{"Accept?"}
+  accept -->|yes| pr["Open pull request"]
+  accept -->|no| back["Send back once"]
+  back -->|bad diff| fix
+  back -->|bug remains| brain
 ```
 
 The fingerprint is a hash of the service, the normalized message, and the top stack frames. Two reports of the same crash stay one incident. Classification chooses a category, a severity, the likely component, and a short reason. Severity orders the queue. The command then pulls the highest-severity incident that has no conclusion yet. That may be an older incident, not the error that just arrived.

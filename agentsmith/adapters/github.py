@@ -1,10 +1,10 @@
 """GitHub access. fixture reads local samples; mcp calls the GitHub MCP server."""
 
-import asyncio
 import json
 import os
 from pathlib import Path
 
+from agentsmith.adapters.mcp_client import call_tool
 from agentsmith.tools import PullRequest, ToolError
 
 _FIXTURE = Path(__file__).resolve().parent.parent.parent / "fixtures" / "github.json"
@@ -59,16 +59,19 @@ class McpGitHub:
         arguments = {"repo": repo, "path": path}
         if ref:
             arguments["ref"] = ref
-        return _call_tool(self.url, "get_file", arguments)
+        return call_tool(self.url, "get_file", arguments, server="GitHub")
 
     def get_pull_request_diff(self, *, repo: str, number: int) -> str:
-        return _call_tool(self.url, "get_pull_request_diff", {"repo": repo, "number": number})
+        return call_tool(
+            self.url, "get_pull_request_diff", {"repo": repo, "number": number}, server="GitHub"
+        )
 
     def open_pull_request(self, *, repo: str, title: str, body: str, diff: str) -> PullRequest:
-        raw = _call_tool(
+        raw = call_tool(
             self.url,
             "open_pull_request",
             {"repo": repo, "title": title, "body": body, "diff": diff},
+            server="GitHub",
         )
         try:
             data = json.loads(raw)
@@ -78,36 +81,3 @@ class McpGitHub:
             raise ToolError("open_pull_request must return JSON with number and html_url") from exc
         return PullRequest(repo=repo, number=number, title=str(data.get("title") or title), html_url=url)
 
-
-def _call_tool(url: str, name: str, arguments: dict) -> str:
-    try:
-        return asyncio.run(_call_tool_async(url, name, arguments))
-    except ToolError:
-        raise
-    except Exception as exc:
-        raise ToolError(f"GitHub MCP {name} failed: {exc}") from exc
-
-
-async def _call_tool_async(url: str, name: str, arguments: dict) -> str:
-    from mcp import ClientSession
-    from mcp.client.streamable_http import streamable_http_client
-
-    async with streamable_http_client(url) as (read_stream, write_stream):
-        async with ClientSession(read_stream, write_stream) as session:
-            await session.initialize()
-            result = await session.call_tool(name, arguments)
-    if getattr(result, "is_error", False):
-        raise ToolError(_result_text(result) or f"GitHub MCP {name} returned an error")
-    text = _result_text(result)
-    if not text:
-        raise ToolError(f"GitHub MCP {name} returned no text")
-    return text
-
-
-def _result_text(result: object) -> str:
-    parts = []
-    for block in getattr(result, "content", []) or []:
-        text = getattr(block, "text", None)
-        if text:
-            parts.append(text)
-    return "\n".join(parts)

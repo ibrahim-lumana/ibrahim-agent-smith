@@ -23,7 +23,7 @@ Folders:
 - `agentsmith/brains/` is the model boundary. Stages call a `Brain`. `ClaudeBrain` is the current implementation and runs as `sonnet` or `opus`.
 - `agentsmith/adapters/` is the only place that contacts an external system. Logs, git, telemetry, and issues each get one module.
 
-`agentsmith/tools.py` is the dispatcher stages call. The tools are `get_logs`, `get_machine_state`, `get_recent_changes`, `get_file`, `get_pull_request_diff`, and `open_pull_request`. `LOGS_ADAPTER`, `TELEMETRY_ADAPTER`, `GIT_ADAPTER`, and `GITHUB_ADAPTER` select the implementation. `fixture` is the default. `GITHUB_ADAPTER=mcp` calls the GitHub MCP server at `GITHUB_MCP_URL`. That server has to be running first. Logs stay on fixtures until a logs server exists.
+`agentsmith/tools.py` is the dispatcher stages call. The tools are `get_logs`, `get_machine_state`, `get_recent_changes`, `get_file`, `get_pull_request_diff`, and `open_pull_request`. `LOGS_ADAPTER`, `TELEMETRY_ADAPTER`, `GIT_ADAPTER`, and `GITHUB_ADAPTER` select the implementation. `fixture` is the default. `GITHUB_ADAPTER=mcp` calls the GitHub MCP server at `GITHUB_MCP_URL`. `LOGS_ADAPTER=mcp` calls `query_logs` on the GCP logs server at `LOGS_MCP_URL`. Both stay on `fixture` when those tunnels are down.
 
 `report.py` is the placeholder for the Markdown report.
 

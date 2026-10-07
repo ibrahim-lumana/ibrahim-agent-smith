@@ -1,0 +1,13 @@
+{
+  "error_id": "err-cloud-upload-2026-10-07",
+  "timestamp": "2026-10-07T00:00:05Z",
+  "service": "analyzer_reader",
+  "component": "analyzer_reader",
+  "machine_id": "edge-nvidia",
+  "environment": "production",
+  "error_message": "Cloud API upload rejected: thumbnail upload failed with HTTP 503. upstream connect error or disconnect/reset before headers. reset reason: connection termination",
+  "metadata": {
+    "source": "samples/real_logs/logs-1791368118701/home/nvidia/logs/analyzer_readerlog-2026-10-07.log",
+    "bucket_type": "thumbnails"
+  }
+}

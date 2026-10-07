@@ -1,3 +1,10 @@
 {
-  "video-indexer": "lumana/video-indexer"
+  "video-indexer": "lumana/video-indexer",
+  "analyzer_reader": "lumanaai/analytics",
+  "analyzer_manager": "lumanaai/analytics",
+  "streamer_manager": "lumanaai/edge",
+  "manager": "lumanaai/edge",
+  "msgs": "lumanaai/edge",
+  "offline_manager": "lumanaai/edge",
+  "garbage-collector": "lumanaai/lumix-cloud"
 }

@@ -1,0 +1,15 @@
+{
+  "error_id": "err-livekit-delete-room-2026-10-07",
+  "timestamp": "2026-10-07T13:29:06Z",
+  "service": "garbage-collector",
+  "component": "garbage-collector",
+  "machine_id": "garbage-collector-deployment-55d5cdfc65-62hxj",
+  "environment": "production",
+  "error_message": "Failed to delete LiveKit room: LiveKitService.deleteRoom via RoomServiceClient.deleteRoom returned Internal Server Error: could not find object",
+  "stack_trace": "Internal Server Error: could not find object\n    at TwirpRpc.request (/usr/src/app/node_modules/livekit-server-sdk/dist/TwirpRPC.cjs:96:13)\n    at async RoomServiceClient.deleteRoom (/usr/src/app/node_modules/livekit-server-sdk/dist/RoomServiceClient.cjs:74:5)\n    at async LiveKitService.deleteRoom (/usr/src/app/dist/libs)\n",
+  "metadata": {
+    "cluster": "us-production",
+    "namespace": "default",
+    "container": "core"
+  }
+}

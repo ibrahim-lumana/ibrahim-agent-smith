@@ -99,11 +99,11 @@ def load_tools() -> Toolset:
     load_project_env()
     from agentsmith.adapters.git import FixtureGit
     from agentsmith.adapters.github import FixtureGitHub, McpGitHub
-    from agentsmith.adapters.logs import FixtureLogs
+    from agentsmith.adapters.logs import FixtureLogs, McpLogs
     from agentsmith.adapters.telemetry import FixtureTelemetry
 
     return Toolset(
-        logs=_select("LOGS_ADAPTER", {"fixture": FixtureLogs}),
+        logs=_select("LOGS_ADAPTER", {"fixture": FixtureLogs, "mcp": McpLogs}),
         telemetry=_select("TELEMETRY_ADAPTER", {"fixture": FixtureTelemetry}),
         git=_select("GIT_ADAPTER", {"fixture": FixtureGit}),
         github=_select("GITHUB_ADAPTER", {"fixture": FixtureGitHub, "mcp": McpGitHub}),
