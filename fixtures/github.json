@@ -1,0 +1,29 @@
+{
+  "files": [
+    {
+      "repo": "lumana/video-indexer",
+      "path": "stream_manager.py",
+      "ref": "",
+      "content": "class StreamManager:\n    def reconnect(self, session):\n        # The RTSP callback can run after StreamContext has been destroyed.\n        self._context.callback()\n"
+    },
+    {
+      "repo": "lumana/video-indexer",
+      "path": "rtsp_client.py",
+      "ref": "",
+      "content": "class RtspClient:\n    def __init__(self, stream_manager):\n        self._manager = stream_manager\n        self._pending = None\n\n    def on_connection_lost(self, session):\n        # Logs 'reconnect callback scheduled', then runs on_reconnect later.\n        # Does not hold the StreamContext, so teardown can destroy it first.\n        context = self._manager._context\n        self._pending = lambda: self.on_reconnect(session, context)\n\n    def on_reconnect(self, session, context):\n        self._manager.reconnect(session)\n"
+    },
+    {
+      "repo": "lumana/video-indexer",
+      "path": "stream_context.py",
+      "ref": "",
+      "content": "class StreamContext:\n    def __init__(self, session_id):\n        self.session_id = session_id\n        self._holds = 0\n        self._destroyed = False\n\n    def hold(self):\n        if self._destroyed:\n            raise RuntimeError(\"StreamContext destroyed\")\n        self._holds += 1\n\n    def release(self):\n        if self._holds:\n            self._holds -= 1\n\n    def destroy(self):\n        # Does not cancel a reconnect that was already scheduled.\n        self._destroyed = True\n\n    def callback(self):\n        if self._destroyed:\n            raise RuntimeError(\"StreamContext destroyed\")\n        return \"reconnected\"\n"
+    }
+  ],
+  "diffs": [
+    {
+      "repo": "lumana/video-indexer",
+      "number": 4821,
+      "diff": "--- a/stream_manager.py\n+++ b/stream_manager.py\n@@ -8,7 +8,6 @@ class StreamManager:\n     def reconnect(self, session):\n-        self._context.hold()\n+        self._context.callback()\n"
+    }
+  ]
+}

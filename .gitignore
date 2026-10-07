@@ -1,0 +1,26 @@
+# Python
+.venv/
+venv/
+__pycache__/
+*.py[cod]
+*.egg-info/
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+
+# Secrets and local config
+.env
+
+# Local state and generated output
+*.sqlite
+*.sqlite3
+*.db
+data/
+
+# Local clone of the manager's platform. It has its own git history.
+third_party/
+
+# OS / editor
+.DS_Store
+.idea/
+.vscode/

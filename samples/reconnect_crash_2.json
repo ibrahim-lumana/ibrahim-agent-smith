@@ -1,0 +1,11 @@
+{
+  "error_id": "err-reconnect-2044",
+  "timestamp": "2026-04-12T14:41:03Z",
+  "service": "video-indexer",
+  "component": "stream_manager",
+  "machine_id": "edge-b",
+  "environment": "production",
+  "error_message": "StreamContext has already been destroyed during reconnect for session 2044",
+  "stack_trace": "Traceback (most recent call last):\n  File \"rtsp_client.py\", line 91, in on_reconnect\n    stream_manager.reconnect(session)\n  File \"stream_manager.py\", line 128, in reconnect\n    self._context.callback()\n  File \"stream_context.py\", line 51, in callback\n    raise RuntimeError(\"StreamContext destroyed\")\nRuntimeError: StreamContext has already been destroyed\n",
+  "metadata": {}
+}

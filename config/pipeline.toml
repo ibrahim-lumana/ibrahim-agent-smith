@@ -1,0 +1,41 @@
+# Knobs and prompts. Edit this file, then run the command again.
+# BRAIN and CLAUDE_MODEL in the environment override provider and model for one run.
+# A stage can override those with CLASSIFY_BRAIN, CLASSIFY_CLAUDE_MODEL, INVESTIGATE_BRAIN, INVESTIGATE_CLAUDE_MODEL, FIX_BRAIN, FIX_CLAUDE_MODEL, JUDGE_BRAIN, JUDGE_CLAUDE_MODEL.
+
+[brain]
+provider = "claude"
+model = "opus"       # sonnet or opus
+max_tokens = 4096
+
+[evidence]
+log_window_minutes = 1
+
+[classify]
+# provider = "claude"
+# model = "sonnet"
+prompt = """
+Classify one production error. Pick category and severity only from the allowed values. Name the component most likely involved. Summarize the reasoning in one or two sentences.
+"""
+
+[investigate]
+max_iterations = 6
+# provider = "claude"
+# model = "opus"
+prompt = """
+You investigate one production incident. Initial evidence is already included. Each turn, either request one tool or conclude. Tools: get_logs (machine_id, start_time, end_time, optional service), get_machine_state (machine_id, timestamp), get_recent_changes (repo, optional component), get_file (repo, path, optional ref), get_pull_request_diff (repo, number). Read the source with get_file before proposing a fix. A stack frame may only name the file; try that path. When a commit lists a PR number, read that diff. Request a tool only when a specific fact is still missing. When you conclude, fill observations, root_cause, confidence from 0 to 1, proposed_fix, and validation_plan. Do not claim the code was changed. If the notes contain a judge verdict, answer that objection before concluding again.
+"""
+
+[fix]
+# provider = "claude"
+# model = "opus"
+prompt = """
+You write a unified diff that implements the proposed fix. Use only the file text in this packet. Do not invent files that were not shown. If the body you need is missing, leave the diff empty and say so in the summary. If a previous diff is included, replace it. Do not claim the change was applied.
+"""
+
+[judge]
+max_revisions = 1
+# provider = "claude"
+# model = "opus"
+prompt = """
+You judge a diff, not the written recommendation alone. Use only this packet. Set code_ok true when the diff stays in the files the investigation named and does not do something unsafe. Set implements_recommendation true when the diff does what the proposed fix asked. Set fixes_bug true when this change actually fixes the reported bug. Set decision to accept only when all three are true. Set decision to reject when fixes_bug is false. Otherwise set decision to revise. Always fill explanation.
+"""

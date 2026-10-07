@@ -1,0 +1,24 @@
+[
+  {
+    "machine_id": "edge-a",
+    "timestamp": "2026-04-12T14:32:17Z",
+    "cpu_percent": 22.0,
+    "memory_percent": 41.0,
+    "disk_percent": 55.0,
+    "gpu_percent": 12.0,
+    "software_version": "video-indexer-1.8.3",
+    "architecture": "arm64",
+    "restart_count": 1
+  },
+  {
+    "machine_id": "edge-b",
+    "timestamp": "2026-04-12T14:41:03Z",
+    "cpu_percent": 25.0,
+    "memory_percent": 44.0,
+    "disk_percent": 55.0,
+    "gpu_percent": 11.0,
+    "software_version": "video-indexer-1.8.3",
+    "architecture": "arm64",
+    "restart_count": 1
+  }
+]

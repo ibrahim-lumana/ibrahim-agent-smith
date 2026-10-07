@@ -1,0 +1,11 @@
+{
+  "error_id": "err-config-9",
+  "timestamp": "2026-04-12T15:05:44Z",
+  "service": "config-service",
+  "component": "loader",
+  "machine_id": "edge-c",
+  "environment": "production",
+  "error_message": "Failed to load configuration: missing key stripe_secret",
+  "stack_trace": "Traceback (most recent call last):\n  File \"main.py\", line 30, in boot\n    load_config()\n  File \"loader.py\", line 18, in load_config\n    raise KeyError(key)\nKeyError: stripe_secret\n",
+  "metadata": {}
+}

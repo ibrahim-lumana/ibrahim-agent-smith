@@ -1,0 +1,30 @@
+[
+  {
+    "repo": "lumana/video-indexer",
+    "sha": "abc123",
+    "timestamp": "2026-04-11T09:15:00Z",
+    "author": "dev",
+    "message": "Move StreamContext ownership into the reconnect callback",
+    "component": "stream_manager",
+    "files": ["stream_manager.py", "stream_context.py"],
+    "pr_number": 4821
+  },
+  {
+    "repo": "lumana/video-indexer",
+    "sha": "def456",
+    "timestamp": "2026-04-10T16:00:00Z",
+    "author": "dev",
+    "message": "Log RTSP reconnect attempts",
+    "component": "stream_manager",
+    "files": ["rtsp_client.py"]
+  },
+  {
+    "repo": "lumana/video-indexer",
+    "sha": "aaa111",
+    "timestamp": "2026-04-09T11:00:00Z",
+    "author": "dev",
+    "message": "Update billing export",
+    "component": "billing",
+    "files": ["billing.py"]
+  }
+]

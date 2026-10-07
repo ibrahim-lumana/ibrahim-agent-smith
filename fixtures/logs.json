@@ -1,0 +1,58 @@
+[
+  {
+    "timestamp": "2026-04-12T14:30:00Z",
+    "machine_id": "edge-a",
+    "service": "video-indexer",
+    "severity": "info",
+    "message": "indexer heartbeat"
+  },
+  {
+    "timestamp": "2026-04-12T14:31:40Z",
+    "machine_id": "edge-a",
+    "service": "video-indexer",
+    "severity": "warning",
+    "message": "RTSP connection lost; starting reconnect"
+  },
+  {
+    "timestamp": "2026-04-12T14:32:05Z",
+    "machine_id": "edge-a",
+    "service": "video-indexer",
+    "severity": "info",
+    "message": "reconnect callback scheduled"
+  },
+  {
+    "timestamp": "2026-04-12T14:32:10Z",
+    "machine_id": "edge-a",
+    "service": "config-service",
+    "severity": "info",
+    "message": "config refresh completed"
+  },
+  {
+    "timestamp": "2026-04-12T14:32:17Z",
+    "machine_id": "edge-a",
+    "service": "video-indexer",
+    "severity": "error",
+    "message": "StreamContext has already been destroyed during reconnect for session 1001"
+  },
+  {
+    "timestamp": "2026-04-12T14:34:00Z",
+    "machine_id": "edge-a",
+    "service": "video-indexer",
+    "severity": "error",
+    "message": "reconnect retry still failing"
+  },
+  {
+    "timestamp": "2026-04-12T14:40:20Z",
+    "machine_id": "edge-b",
+    "service": "video-indexer",
+    "severity": "warning",
+    "message": "RTSP connection lost; starting reconnect"
+  },
+  {
+    "timestamp": "2026-04-12T14:41:03Z",
+    "machine_id": "edge-b",
+    "service": "video-indexer",
+    "severity": "error",
+    "message": "StreamContext has already been destroyed during reconnect for session 2044"
+  }
+]
